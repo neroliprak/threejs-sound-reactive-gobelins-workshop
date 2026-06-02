@@ -7,7 +7,7 @@
 	<div class="guide-section">
 		<h3 class="guide-section-title">1. Getting started</h3>
 		<p class="guide-text">
-			The audio engine is dependency-free. Copy the <strong>engine folder</strong> + your music in -<strong>where the engine goes depends on how your page loads</strong> (Vite serves <code class="guide-code">public/</code> raw, but won&rsquo;t import a <code class="guide-code">/public</code> JS file from bundled code):
+			The engine is dependency-free. Where you copy the <strong>engine folder</strong> depends on how your page loads:
 		</p>
 		<div class="guide-pre">
 			<code>// static page in public/ (libs via importmap, like this repo's scenes):
@@ -19,17 +19,17 @@ src/sounds/  →  your src/sounds/   · then  import Analyzer from './sounds/Ana
 public/tracks/  →  your public/tracks/   · music (or mic), both cases</code>
 		</div>
 		<p class="guide-text">
-			Also copy <code class="guide-code">vite-plugin-vj-tracks.js</code> and register it -it keeps <code class="guide-code">tracks.json</code> in sync, so dropping an <code class="guide-code">.mp3</code> in <code class="guide-code">public/tracks/</code> adds it to the playlist:
+			Register <code class="guide-code">vite-plugin-vj-tracks.js</code> too. It keeps <code class="guide-code">tracks.json</code> in sync, so dropping an <code class="guide-code">.mp3</code> in <code class="guide-code">public/tracks/</code> adds it to the playlist:
 		</p>
 		<div class="guide-pre">
 			<code>import vjTracksPlugin from './vite-plugin-vj-tracks.js'
 export default defineConfig( { plugins: [ vjTracksPlugin() ] } )</code>
 		</div>
 		<p class="guide-text">
-			Cold start: the plugin writes <code class="guide-code">tracks.json</code> just after the dev server&rsquo;s first scan, so a brand-new run can&rsquo;t serve it yet and falls back to the mic -keep one generated <code class="guide-code">tracks.json</code> in the folder, or restart <code class="guide-code">pnpm dev</code> once.
+			On a brand-new project the first <code class="guide-code">pnpm dev</code> falls back to the mic, because <code class="guide-code">tracks.json</code> is written just after the initial scan. Restart once, or commit a generated <code class="guide-code">tracks.json</code>.
 		</p>
 		<p class="guide-text">
-			Then read the signals each frame (same in both setups):
+			Then read the signals each frame:
 		</p>
 		<div class="guide-pre">
 			<code>const audio = new Analyzer()
@@ -53,7 +53,7 @@ audio.onAudio( a => {
 	<div class="guide-section">
 		<h3 class="guide-section-title">2. The helper modules</h3>
 		<p class="guide-text">
-			The <code class="guide-code">Analyzer</code> lazy-loads these for you in standalone mode -reach for them only when you want manual control. All three live in <code class="guide-code">src/sounds/</code>.
+			The <code class="guide-code">Analyzer</code> lazy-loads these in standalone mode, so reach for them only when you want manual control. All three live in <code class="guide-code">src/sounds/</code>.
 		</p>
 		<div class="guide-pre">
 			<code>// AnalyzerDebug- live overlay
@@ -79,14 +79,14 @@ new PlayerControl( { getAudioEl, getSource, getTrackName, onSkip, onSeek } )</co
 	<div class="guide-section">
 		<h3 class="guide-section-title">3. Integrate it here</h3>
 		<p class="guide-text">
-			Add your scene as a <strong>local folder</strong> and open a <strong>pull request</strong> -no list to edit. Copy the template, rename it, and edit its <code class="guide-code">index.html</code>:
+			Add your scene as a <strong>local folder</strong> and open a <strong>pull request</strong> (no list to edit). Copy the template, rename it, and edit its <code class="guide-code">index.html</code>:
 		</p>
 		<div class="guide-pre">
 			<code>public/vj-scenes/template/  →  public/vj-scenes/your-name/
 # edit index.html, save, then open a PR</code>
 		</div>
 		<p class="guide-text">
-			Save and the dev server auto-detects the folder. Once your PR is merged it joins the loop: the host loads it in an iframe and the same <code class="guide-code">Analyzer</code> auto-switches to <strong>receive</strong> mode -it reads the show's live audio instead of its own. Nothing in your code changes.
+			Save and the dev server auto-detects the folder. Once merged it joins the loop: the host loads it in an iframe and the same <code class="guide-code">Analyzer</code> switches to <strong>receive</strong> mode, reading the show's live audio instead of its own. Nothing in your code changes.
 		</p>
 	</div>
 </div>

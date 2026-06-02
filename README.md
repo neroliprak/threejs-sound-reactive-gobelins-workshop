@@ -1,12 +1,10 @@
 # Sound-Reactive VJ- Gobelins Workshop
 
-A live **VJ host** that plays each participant's visual back-to-back in an
-**infinite loop**, blinking between them (the iris closes to black, then opens),
-all reacting to the same music (mp3 or live mic).
+A live **VJ host** that plays each student's visual back-to-back in an
+**infinite loop**, blinking between them, all reacting to the same music (mp3 or live mic).
 
-Every participant brings **their own self-contained page** (three.js, WebGPU, p5,
-raw canvas- anything), loaded in an iframe. The host runs one audio analyser and
-sends each on-screen scene four simple signals. Any tech works, and one scene
+Every student brings **their own self-contained page** (three.js), loaded in an iframe. The host runs one audio analyser and
+sends each on-screen scene four simple signals. Any tech / stacks works, and one scene
 crashing never touches the others.
 
 Each scene is **independent**: open it on its own and it runs standalone (it automatically plays the identical MP3 tracks from the playlist); embedded in the host, the same code receives the master's
@@ -16,16 +14,16 @@ the [`src/VJHost.js`](src/VJHost.js) singleton, started by [`src/main.js`](src/m
 
 ```bash
 pnpm install
-pnpm dev             # open the printed URL, click "start the show"
-# drop your .mp3 in public/tracks/
+pnpm dev
+# drop more .mp3 in public/tracks/
 ```
 
 ## Add your scene
 
 Add a **local folder** and open a **pull request**- it joins the loop with **no list to edit**:
 
-- copy `public/vj-scenes/template/` → `public/vj-scenes/<your-name>/`, edit `index.html`,
-  save (the dev server auto-detects it), then open a PR.
+- copy `public/vj-scenes/template/` → `public/vj-scenes/<your-name>/`
+- edit `index.html`, save (the dev server auto-detects it), then open a PR if everythings is good.
 
 ### The contract
 
@@ -190,7 +188,7 @@ src/sounds/PlayerControl.js  the "now playing" control- shared by the host and s
 src/sounds/ui/           the control's markup & styles (string modules, so they ride along with /sounds)
 src/sounds/AnalyzerDebug.js  optional draggable debug overlay
 public/
-  vj-scenes/<name>/index.html   each participant's self-contained page
+  vj-scenes/<name>/index.html   each student's self-contained page
   tracks/                drop mp3s here (auto-discovered; tracks.json generated inside)
 vite-plugin-vj-tracks.js the "auto track update"- regenerates tracks.json (copy this to reuse)
 vite.config.js           tiny plugins: discover vj-scenes/*, tracks/*, serve /sounds from src/sounds

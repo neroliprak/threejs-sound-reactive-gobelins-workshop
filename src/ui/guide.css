@@ -109,7 +109,7 @@ dialog#integration-guide[open]::backdrop {
 	font-family: 'Outfit', sans-serif;
 	font-size: 13.5px;
 	font-weight: 700;
-	color: #b8b8c0;
+	color: #ffffff;
 	letter-spacing: 0.2em;
 	text-transform: uppercase;
 	display: flex;
@@ -127,9 +127,9 @@ dialog#integration-guide[open]::backdrop {
 }
 
 .guide-text {
-	margin: 0 0 12px 0;
+	margin: 0 0 16px 0;
 	font-size: 13.5px;
-	line-height: 1.7;
+	line-height: 1.75;
 	color: #d2d2d9;
 }
 
